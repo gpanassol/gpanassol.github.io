@@ -176,13 +176,13 @@ Sua sintaxe:
 
 ## Referências
 
-- <a target="_blank" href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/var">https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/var</a>
-- <a target="_blank" href="http://www.w3schools.com/js/js_hoisting.asp">http://www.w3schools.com/js/js_hoisting.asp</a>
-- <a target="_blank" href="http://loopinfinito.com.br/2014/10/29/hoisting-e-escopo-em-javascript/">http://loopinfinito.com.br/2014/10/29/hoisting-e-escopo-em-javascript/</a>
-- <a target="_blank" href="http://javascriptbrasil.com/2013/10/12/entenda-closures-no-javascript-com-facilidade/">http://javascriptbrasil.com/2013/10/12/entenda-closures-no-javascript-com-facilidade/</a>
-- <a target="_blank" href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures">https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures</a>
-- <a target="_blank" href="http://tutsmais.com.br/blog/javascript-2/o-que-e-iife-no-javascript/">http://tutsmais.com.br/blog/javascript-2/o-que-e-iife-no-javascript/</a>
-- <a target="_blank" href="http://imasters.com.br/front-end/javascript/sobre-funcoes-imediatas-javascript-iife/">http://imasters.com.br/front-end/javascript/sobre-funcoes-imediatas-javascript-iife/</a>
+<a target="_blank" href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/var">https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/var</a>
+<a target="_blank" href="http://www.w3schools.com/js/js_hoisting.asp">http://www.w3schools.com/js/js_hoisting.asp</a>
+<a target="_blank" href="http://loopinfinito.com.br/2014/10/29/hoisting-e-escopo-em-javascript/">http://loopinfinito.com.br/2014/10/29/hoisting-e-escopo-em-javascript/</a>
+<a target="_blank" href="http://javascriptbrasil.com/2013/10/12/entenda-closures-no-javascript-com-facilidade/">http://javascriptbrasil.com/2013/10/12/entenda-closures-no-javascript-com-facilidade/</a>
+<a target="_blank" href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures">https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures</a>
+<a target="_blank" href="http://tutsmais.com.br/blog/javascript-2/o-que-e-iife-no-javascript/">http://tutsmais.com.br/blog/javascript-2/o-que-e-iife-no-javascript/</a>
+<a target="_blank" href="http://imasters.com.br/front-end/javascript/sobre-funcoes-imediatas-javascript-iife/">http://imasters.com.br/front-end/javascript/sobre-funcoes-imediatas-javascript-iife/</a>
 
 <table width="100%" align="center">
 	<tr>
