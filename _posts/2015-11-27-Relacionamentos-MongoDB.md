@@ -1,4 +1,4 @@
-## Relacionamento em MongoDB
+Vamos entender como o MongoDB trabalha com relacionamento de dados. Basicamente veremos como podemos relacionar os dados usando uma ideia parecida com chaves estrangeiras.
 
 ##### Não existe JOINS (Por hora, veja o blog do <a target="_blank" href="http://christiano.me/mongodb-com-suporte-a-joins/">Christiano Anderson</a> falando mais sobre esse assunto)
 

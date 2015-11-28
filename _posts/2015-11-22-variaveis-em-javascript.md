@@ -1,5 +1,4 @@
-# Artigo
-**autor**: Gabriel Panassol
+Entenda como o javascript trabalha com suas variáveis globais, locais e passadas por paramêtro. Entenda como funciona Hoisting, Closure e IIFE.
 
 ## Hoisting - Hasteamento
 
