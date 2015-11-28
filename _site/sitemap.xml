@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/notes/Relacionamentos-MongoDB</loc>
+    <loc>/notes/relacionamentos-mongoDB</loc>
     <lastmod>2015-11-27T00:00:00+00:00</lastmod>
   </url>
   <url>
-    <loc>/notes/NoSql</loc>
+    <loc>/notes/nosql</loc>
     <lastmod>2015-11-25T00:00:00+00:00</lastmod>
   </url>
   <url>
-    <loc>/notes/instanciacao-javascript</loc>
+    <loc>/notes/variaveis-em-javascript</loc>
     <lastmod>2015-11-22T00:00:00+00:00</lastmod>
   </url>
   <url>
@@ -29,12 +29,12 @@
       <loc>/notes/inicio</loc>
     </url>
     <url>
-      <loc>/notes/instanciacao-javascript</loc>
+      <loc>/notes/variaveis-em-javascript</loc>
     </url>
     <url>
-      <loc>/notes/NoSql</loc>
+      <loc>/notes/nosql</loc>
     </url>
     <url>
-      <loc>/notes/Relacionamentos-MongoDB</loc>
+      <loc>/notes/relacionamentos-mongoDB</loc>
     </url>
 </urlset>
