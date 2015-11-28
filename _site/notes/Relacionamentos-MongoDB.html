@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Relacionamentos Mongodb</title><meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@gpanassol" /><meta name="twitter:title" content="Relacionamentos Mongodb" /><meta name="twitter:description" content="Relacionamento em MongoDB"><meta name="description" content="Relacionamento em MongoDB"><link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/touch-icon.png"><link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css"><link rel="stylesheet" href="/assets/core.css"><link rel="canonical" href="/notes/Relacionamentos-MongoDB"><link rel="alternate" type="application/atom+xml" title="Gabriel Panassol" href="/feed.xml" /> <script> var disqus_config = function () { this.page.url = 'http://gpanassol.github.io/'; this.page.identifier = 'gpanassol'; }; (function() { var d = document, s = d.createElement('script'); s.src = 'http://gpanassol.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })(); </script></head><body><aside class="logo"> <a href="/"> <img src="http://www.gravatar.com/avatar/80a436494a0b789c8f944abadfa9883d.png?s=80" class="gravatar"> </a> <span class="logo-prompt">Home</span></aside><main> <noscript><style> article .footnotes { display: block; }</style></noscript><article><div class="center"><h1>Relacionamentos Mongodb</h1><time>November 27, 2015</time></div><div class="divider"></div><h2 id="relacionamento-em-mongodb">Relacionamento em MongoDB</h2><h5 id="no-existe-joins-por-hora-veja-o-blog-do-a-targetblank-hrefhttpchristianomemongodb-com-suporte-a-joinschristiano-andersona-falando-mais-sobre-esse-assunto">Não existe JOINS (Por hora, veja o blog do <a target="_blank" href="http://christiano.me/mongodb-com-suporte-a-joins/">Christiano Anderson</a> falando mais sobre esse assunto)</h5><p>Para realizarmos relacionamentos precisamos salvar o _id de uma coleção em outra. Exemplo, vamos buscar 3 dados aleatórios, nesse caso estou usando minha base pokemon. Para obte-la basta acessar <a target="_blank" href="https://github.com/gpanassol/arquivos/">aqui</a></p><pre><code>&gt; db.pokemons.find({}, {name:1}).limit(3).pretty()
+{ "_id" : ObjectId("564b1dad25337263280d0479"), "name" : "Rattata" }
+{ "_id" : ObjectId("564b1dad25337263280d047b"), "name" : "Charmeleon" }
+{ "_id" : ObjectId("564b1dad25337263280d047a"), "name" : "Charmander" }
+</code></pre><p>Vamos montar um array com os _id’s</p><pre><code>var pokemons = [
+	{ "_id" : ObjectId("564b1dad25337263280d0479")},
+	{ "_id" : ObjectId("564b1dad25337263280d047b")},
+	{ "_id" : ObjectId("564b1dad25337263280d047a")}
+]
+</code></pre><p>Agora criaremos um json contendo os meus pokemos</p><pre><code>&gt; var json = {name: "Meus pokemons", pokemons: pokemons}
+&gt; json
+{
+        "name" : "Meus pokemons",
+        "pokemons" : [
+                {
+                        "_id" : ObjectId("564b1dad25337263280d0479")
+                },
+                {
+                        "_id" : ObjectId("564b1dad25337263280d047b")
+                },
+                {
+                        "_id" : ObjectId("564b1dad25337263280d047a")
+                }
+        ]
+}
+</code></pre><p>Inserindo meus pokemons em uma coleção chamada inventario (inv)</p><pre><code>&gt; db.invt.insert(json)
+WriteResult({ "nInserted" : 1 })
+&gt; db.invt.find().pretty()
+{
+        "_id" : ObjectId("5658f9955c8f9760464e2b96"),
+        "name" : "Meus pokemons",
+        "pokemons" : [
+                {
+                        "_id" : ObjectId("564b1dad25337263280d0479")
+                },
+                {
+                        "_id" : ObjectId("564b1dad25337263280d047b")
+                },
+                {
+                        "_id" : ObjectId("564b1dad25337263280d047a")
+                }
+        ]
+}
+</code></pre><p>Agora como vamos buscar os dados dos pokemons? Para isso vamos utilizar um javascript, que o mongodb já aceita nativamente, para isso.</p><pre><code>&gt; var pokemons = []
+&gt; var getPokemon = function(id){pokemons.push(db.pokemons.findOne(id))}
+&gt; var invt = db.invt.findOne()
+&gt; invt
+{
+        "_id" : ObjectId("5658f9955c8f9760464e2b96"),
+        "name" : "Meus pokemons",
+        "pokemons" : [
+                {
+                        "_id" : ObjectId("564b1dad25337263280d0479")
+                },
+                {
+                        "_id" : ObjectId("564b1dad25337263280d047b")
+                },
+                {
+                        "_id" : ObjectId("564b1dad25337263280d047a")
+                }
+        ]
+}
+&gt; invt.pokemons.forEach(getPokemon)
+</code></pre><p>Com isso temos os seguintes resultados no array pokemons</p><pre><code>&gt; pokemons
+[
+        {
+                "_id" : ObjectId("564b1dad25337263280d0479"),
+                "attack" : 56,
+                "created" : "2013-11-03T15:05:41.305777",
+                "defense" : 35,
+                "height" : "3",
+                "hp" : 30,
+                "name" : "Rattata",
+                "speed" : 72,
+                "types" : [
+                        "normal"
+                ]
+        },
+        {
+                "_id" : ObjectId("564b1dad25337263280d047b"),
+                "attack" : 64,
+                "created" : "2013-11-03T15:05:41.273462",
+                "defense" : 58,
+                "height" : "11",
+                "hp" : 58,
+                "name" : "Charmeleon",
+                "speed" : 80,
+                "types" : [
+                        "fire"
+                ]
+        },
+        {
+                "_id" : ObjectId("564b1dad25337263280d047a"),
+                "attack" : 52,
+                "created" : "2013-11-03T15:05:41.271082",
+                "defense" : 43,
+                "height" : "6",
+                "hp" : 39,
+                "name" : "Charmander",
+                "speed" : 65,
+                "types" : [
+                        "fire"
+                ]
+        }
+]
+</code></pre><p>A partir da nossa entidade guardada iniciamos em na coleção invt conectamos na collection db.pokemons e buscamos todos os pokemons com o _id armazenado.</p><p>Pô, que dahora isso!! Mas eu vou fazer na mão? Não para isso podemos usar o <a targer="_blank" href="http://mongoosejs.com/">Mongoose</a> que basicamente fará isso para nós.</p><h2 id="dbref">DBRef</h2><p>O DRef e uma convenção. Basicamente ele regulamenta a utilização de padrões para identificações de chaves em um documento de vindo de diferentes coleções. Como assim? Vamos dizer, com um exemplo vem “mais ou menos” que é a forma como nomemos os nomes de nossos campos no documentos vindo de uma outra coleção. Seria a nossa chave estrangeira em um banco relacional. Porém nem tudo são flores, nem todos os drives utilizam desse padrão.</p><p>Seu padrão o seguinte</p><pre><code>{ "$ref" : &lt;value&gt;, "$id" : &lt;value&gt;, "$db" : &lt;value&gt; }
+</code></pre><p>Onde:</p><p>$ref: é o nome da coleção;<br /> $id: é o objectId do documento referenciado;<br /> $db: é a base onde a coleção se encontra;</p><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></article><div class="back"> <a href="/">Back</a></div></main></body></html>

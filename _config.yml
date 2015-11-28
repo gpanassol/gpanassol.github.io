@@ -26,6 +26,8 @@ kramdown:
 sass:
     style:          :compressed
 
+environment:        production # development ou production
+
 # Other Params
 include:            [ "robots.txt" ]
 exclude:            [ "LICENSE", "README.md", "CNAME", "vendor", "Gemfile" ]
