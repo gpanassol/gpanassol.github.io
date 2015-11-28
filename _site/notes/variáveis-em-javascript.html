@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Variáveis Em Javascript</title><meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@gpanassol" /><meta name="twitter:title" content="Variáveis Em Javascript" /><meta name="twitter:description" content="Artigoautor: Gabriel Panassol"><meta name="description" content="Artigoautor: Gabriel Panassol"><link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/touch-icon.png"><link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css"><link rel="stylesheet" href="/assets/core.css"><link rel="canonical" href="/notes/vari%C3%A1veis-em-javascript"><link rel="alternate" type="application/atom+xml" title="Gabriel Panassol" href="/feed.xml" /> <script> var disqus_config = function () { this.page.url = 'http://gpanassol.github.io/'; this.page.identifier = 'gpanassol'; }; (function() { var d = document, s = d.createElement('script'); s.src = 'http://gpanassol.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })(); </script></head><body><aside class="logo"> <a href="/"> <img src="http://www.gravatar.com/avatar/80a436494a0b789c8f944abadfa9883d.png?s=80" class="gravatar"> </a> <span class="logo-prompt">Home</span></aside><main> <noscript><style> article .footnotes { display: block; }</style></noscript><article><div class="center"><h1>Variáveis Em Javascript</h1><time>November 22, 2015</time></div><div class="divider"></div><h1 id="artigo">Artigo</h1><p><strong>autor</strong>: Gabriel Panassol</p><h2 id="hoisting---hasteamento">Hoisting - Hasteamento</h2><p>Hoisting (hasteamento) é um comportamento onde as declarações de variáveis e/ou função são processadas antes de qualquer código executado.<br /> Para entender melhor, o javascript implicitamente irá declarar primeiramente todas as variáveis antes de iniciar a execução do programa. O termo <br /> hoisting literamente eleva as declarações de variáveis ao “topo do programa”. Vamos ao exemplo:</p><pre><code>bla = 2
+var bla;
+// ...
+
+// é implicitamente entendido como:
+
+var bla;
+bla = 2;
+</code></pre><p>Porém deve entender uma caracteristica, o processo de hoisting somente eleva a declaração da variável o seu valor de inicialização<br /> não será elevador, vamos ao exemplo:</p><pre><code>var x = 5; // Initialize x
+
+elem = document.getElementById("demo"); // Find an element 
+elem.innerHTML = x + " " + y;           // Display x and y
+
+var y = 7; // Initialize y
+</code></pre><p>Ao rodar esse exemplo no console do seu navegador será apresentado a mensagem:</p><pre><code>x is 5 and y is undefined
+</code></pre><p>Por essa razão recomenda-se a declaração das variáveis sempre primeiramente em seu código.</p><h2 id="closure">Closure</h2><p>Antes de falarmos de Closures precisamos entender escopo de variáveis. Escopo de Variáveis é o contexto onde existe a variável, é onde você pode ou não acessa-lá.<br /> Variáveis Locais e Variáveis Globais, vamos ao exemplo de uma variável local com bloqueo de escopo local:</p><pre><code>var name = "Gabriel";
+
+function showName(){
+	var nome = "Natalia";
+	console.log(nome) //Natalia
+}
+
+console.log(name) //Gabriel
+</code></pre><p>Aqui declaramos a variável com o mesmo nome tanto local quanto global porém a variável name dentro da função showName() está alocada em outro espaço, ou seja, não é o mesmo <br /> valor. Agora veja a seguinte situação:</p><pre><code>var name = "Gabriel";
+
+function showName(){
+	nome = "Natalia";
+	console.log(nome) //Natalia
+}
+
+console.log(name) //Natalia
+</code></pre><p>Nesse exemplo não declaramos var para a variável ‘name’ dentro da função showName() com isso fica acessivel a variável name global alterando o seu valor. <br /> Tendo isso em mente podemos entender melhor as funções closure.</p><p>O que é closure?</p><p>Closure é uma função interior que tem acesso a funções exteriores - cadeia de escopos. O closure tem três cadeias de escopo:</p><ul><li>Acesso ao seu próprio escopo;</li><li>Acesso as variáveis da função exteriore;</li><li>Acesso as variáveis globais</li></ul><p>A função interior tem acesso a variáveis declaradas em suas chaves e também acesso aos paramêtros da sua função exterior. Veja:</p><pre><code>function name(firstName, lastName){
+
+	function showName(){
+		console.log(firstName + " " + lastName);
+	}
+	
+	return showName();
+}
+
+name('Gabriel', 'Panassol');
+</code></pre><p>Nesse exemplo vemos que a função name() recebe dois paramêtros, firstName e lastName, e dentro dessa função temos uma função closure chamada showName() que concatena essas <br /> duas variáveis. Um detalhe importante veja que a função name retorna showName().</p><h2 id="varivel-global">Variável Global</h2><p>Todas as variáveis declaradas fora de uma função são variáveis globais. E assim estará disponível para toda a aplicação. Vamos ao exemplo:</p><pre><code>var a = 1;
+
+function alterarGlobal(novoValor){
+	alert('Valor Atual.: ' + a);
+	a = novoValor;
+	alert('Novo Valor.: ' + a);
+	
+}
+
+alterarGlobal(3);
+</code></pre><p>Nesse exemplo super simples temos a variável global definida com o nome ‘a’ e atribuindo o valor 1. Na função ‘alterarGlobal’ atribuimos um novo valor para ‘a’;<br /> Uma caracteristica interessante no javascript é que toda variável criada sem a chave ‘var’ passa para o escopo global, exemplo:</p><pre><code>function showAge(){
+	age = 30;
+	console.log(age);
+}
+console.log(age);
+</code></pre><p>Veja que após criar ‘age’ passa a ser acessivel fora da função pois esta no escopo global.</p><h2 id="varivel-por-parmetro">Variável por parâmetro</h2><p>Como mostrado anteriormente as variáveis passadas por parâmetro, ou seja, na assinatura do metodo serão usadas internamente na função. Mesmo as variáveis globais passadas por paramêtro será somente usado internamente e seu valor externo não será modificado, veja:</p><p>var global = 3;</p><p>function soma(a,b){<br /> b=a+b;<br /> return b;<br /> }</p><p>console.log(soma(1,global));<br /> //4<br /> console.log(global);<br /> //3</p><p>Os escopos de variáveis exige cuidado pois a forma de utilização devem ser bem definidas para não haver erro durante sua utilização, isso pode trazer bugs dificil de “pegar”.</p><h2 id="instanciao-usando-uma-iife">Instanciação usando uma IIFE</h2><p>O IIFE significa “Immediately-invoked function expression”, conhecido como funções imediatas. Com isso ele irá executar a função exatamente no mesmo momento que foi criado. Isso é encapsulmento. <br /> Ele é muito utilizado para evitar a poluição do escopo global e possíveis conflitos de variáveis e/ou funções com a mesma nomeclatura. Vamos ao exemplo:</p><pre><code>var adder = (function() {
+	var frase = "";
+ 	return function(x) { 
+ 		return frase = 
+ 		!!frase ? frase.concat(" ", x) : frase.concat(x);
+ 	}
+})();
+ 
+adder("Gabriel"); // "Gabriel"
+adder("Panassol"); // "Gabriel Panassol"
+
+frase; //frase is not defined
+</code></pre><p>Veja que nesse exemplo a variável ‘frase’ foi definido no escopo da IIEE e não na função retornada. Com isso esse variável não será acesso fora da função anônima.</p><p>Sua sintaxe:</p><p>(function doSomething() { /* codigo */ })();</p><p>// função anônima<br /> (function() { /* codigo */ })(); // undefined</p><h2 id="referncias">Referências</h2><p><a target="_blank" href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/var">https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/var</a><br /> <a target="_blank" href="http://www.w3schools.com/js/js_hoisting.asp">http://www.w3schools.com/js/js_hoisting.asp</a><br /> <a target="_blank" href="http://loopinfinito.com.br/2014/10/29/hoisting-e-escopo-em-javascript/">http://loopinfinito.com.br/2014/10/29/hoisting-e-escopo-em-javascript/</a><br /> <a target="_blank" href="http://javascriptbrasil.com/2013/10/12/entenda-closures-no-javascript-com-facilidade/">http://javascriptbrasil.com/2013/10/12/entenda-closures-no-javascript-com-facilidade/</a><br /> <a target="_blank" href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures">https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures</a><br /> <a target="_blank" href="http://tutsmais.com.br/blog/javascript-2/o-que-e-iife-no-javascript/">http://tutsmais.com.br/blog/javascript-2/o-que-e-iife-no-javascript/</a><br /> <a target="_blank" href="http://imasters.com.br/front-end/javascript/sobre-funcoes-imediatas-javascript-iife/">http://imasters.com.br/front-end/javascript/sobre-funcoes-imediatas-javascript-iife/</a></p><table width="100%" align="center"><tr><td align="center"><a target="_blank" href="https://www.facebook.com/gabriel.panassoldafonseca"><img src="/assets/network/fc.png" width="50" height="50" /></a></td><td align="center"><a target="_blank" href="https://github.com/gpanassol/"><img src="/assets/network/octocat.gif" width="50" height="50" /></a></td><td align="center"><a target="_blank" href="https://twitter.com/gabrielpanassol"><img src="/assets/network/twitter.png" width="50" height="50" /></a></td></tr></table><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></article><div class="back"> <a href="/">Back</a></div></main></body></html>
