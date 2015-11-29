@@ -182,11 +182,3 @@ Sua sintaxe:
 <a target="_blank" href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures">https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures</a>
 <a target="_blank" href="http://tutsmais.com.br/blog/javascript-2/o-que-e-iife-no-javascript/">http://tutsmais.com.br/blog/javascript-2/o-que-e-iife-no-javascript/</a>
 <a target="_blank" href="http://imasters.com.br/front-end/javascript/sobre-funcoes-imediatas-javascript-iife/">http://imasters.com.br/front-end/javascript/sobre-funcoes-imediatas-javascript-iife/</a>
-
-<table width="100%" align="center">
-	<tr>
-		<td align="center"><a target="_blank" href="https://www.facebook.com/gabriel.panassoldafonseca"><img src="/assets/network/fc.png" width="50" height="50"/></a></td>
-		<td align="center"><a target="_blank" href="https://github.com/gpanassol/"><img src="/assets/network/octocat.gif" width="50" height="50"/></a></td>
-		<td align="center"><a target="_blank" href="https://twitter.com/gabrielpanassol"><img src="/assets/network/twitter.png" width="50" height="50"/></a></td>
-	</tr>
-</table>
