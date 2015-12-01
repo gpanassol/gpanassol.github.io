@@ -165,17 +165,17 @@ $db: é a base onde a coleção se encontra;
         </tr>
         <tr>
                 <td align="center" title="Facebook">
-                        <a onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" href="https://www.facebook.com/sharer/sharer.php?u=http://gpanassol.github.io/notes/relacionamentos-mongoDB/" class="icon-facebook">
+                        <a onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" href="https://www.facebook.com/sharer/sharer.php?u=http://gpanassol.github.io/notes/Relacionamentos-MongoDB/" class="icon-facebook">
                                 <img src="/assets/network/fc.png" width="50" height="50"/>
                         </a>
                 </td>
                 <td align="center" title="Twitter">
-                        <a onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" href="http://twitter.com/share?text=disqus&amp;url=http://gpanassol.github.io/notes/relacionamentos-mongoDB/" class="icon-twitter">
+                        <a onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" href="http://twitter.com/share?text=disqus&amp;url=http://gpanassol.github.io/notes/Relacionamentos-MongoDB/" class="icon-twitter">
                                 <img src="/assets/network/twitter.png" width="50" height="50"/>
                         </a>
                 </td>
                 <td align="center" title="LinkedIn">
-                        <a onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" href="https://plus.google.com/share?url=http://gpanassol.github.io/notes/relacionamentos-mongoDB/" class="icon-google-plus">
+                        <a onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" href="https://plus.google.com/share?url=http://gpanassol.github.io/notes/Relacionamentos-MongoDB/" class="icon-google-plus">
                                 <img src="/assets/network/google-plus.png" width="50" height="50"/>
                         </a>
 
