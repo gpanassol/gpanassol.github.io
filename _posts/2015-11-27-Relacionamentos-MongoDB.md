@@ -170,7 +170,7 @@ $db: é a base onde a coleção se encontra;
                         </a>
                 </td>
                 <td align="center" title="Twitter">
-                        <a onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" href="http://twitter.com/share?text=disqus&amp;url=http://gpanassol.github.io/notes/Relacionamentos-MongoDB/" class="icon-twitter">
+                        <a onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" href="http://twitter.com/share?text=Relacionamentos MongoDB&amp;url=http://gpanassol.github.io/notes/Relacionamentos-MongoDB/" class="icon-twitter">
                                 <img src="/assets/network/twitter.png" width="50" height="50"/>
                         </a>
                 </td>
