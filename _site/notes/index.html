@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Index</title><meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@gpanassol" /><meta name="twitter:title" content="Index" /><meta name="twitter:description" content="Index em mongoDB assim como outros bancos de dados são extremamente importante para auxiliar nas buscas por determinado valor. Durante a busca de uma coleção os indexes ajudam na performance das bu..."><meta name="description" content="Index em mongoDB assim como outros bancos de dados são extremamente importante para auxiliar nas buscas por determinado valor. Durante a busca de uma coleção..."><link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/touch-icon.png"><link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css"><link rel="stylesheet" href="/assets/core.css"><link rel="canonical" href="/notes/index"><link rel="alternate" type="application/atom+xml" title="Gabriel Panassol" href="/feed.xml" /></head><body><aside class="logo"> <a href="/"> <img src="http://www.gravatar.com/avatar/80a436494a0b789c8f944abadfa9883d.png?s=80" class="gravatar"> </a> <span class="logo-prompt">Home</span></aside><main> <noscript><style> article .footnotes { display: block; }</style></noscript><article><div class="center"><h1>Index</h1><time>December 1, 2015</time></div><div class="divider"></div><p>Index em mongoDB assim como outros bancos de dados são extremamente importante para auxiliar nas buscas por determinado valor. Durante a busca de uma coleção os indexes ajudam na performance das buscas. Mas cuidado sempre é mais eficiente realizar testes de perfomance e estudos para o banco ser mais performático.</p><p>Vamos criar um Index no MongoDB</p><pre><code>&gt; db.restaurantes.createIndex({name:1})
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+</code></pre><p>Detalhe importante, esse valor usado no “name” é para identifica a ordem do index:</p><p>1: Para Ordem Crescente (A-Z)</p><p>ou</p><p>-1: Para Ordem Descrecente (Z-A)</p><p>Quando você cria uma coleção, automaticamente o mongoDB já cria o index dos _id’s. Para vermos todos os indexes podemos utilizar o comando getIndexes().</p><pre><code>&gt; db.restaurantes.getIndexes()
+[
+        {
+                "v" : 1,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_",
+                "ns" : "be-mean.restaurantes"
+        },
+        {
+                "v" : 1,
+                "key" : {
+                        "name" : 1
+                },
+                "name" : "name_1",
+                "ns" : "be-mean.restaurantes"
+        }
+]
+</code></pre><p>Então agora para nossa coleção temos dois indexes, um de “_id” e o outro de “name”. Hmmm, é dai? E dai que agora as buscas por nome serão muito mais performáticas pois elas utilizaram esse index criado, vamos fazer então um comparativo, primeiro vamos buscar os dados sem utilizar os index e no segundo momento busquemos os dados após a criação do Index.</p><h5 id="buscando-por-name-sem-index">Buscando por “name” sem index</h5><pre><code>&gt; query
+{ "name" : "Dunkin' Donuts, Baskin Robbins" }
+&gt; db.restaurantes.find(query).explain('executionStats').executionStats.executionTimeMillis
+15
+</code></pre><h5 id="aps-a-criao-do-index-name">Após a criação do index “name”</h5><pre><code>&gt; query
+{ "name" : "Dunkin' Donuts, Baskin Robbins" }
+&gt; db.restaurantes.find(query).explain('executionStats').executionStats.executionTimeMillis
+0
+</code></pre><p>Vejamos todos os dados retornados usando explain com ‘executionStats’</p><pre><code>&gt; db.restaurantes.find(query).explain('executionStats').executionStats
+{
+        "executionSuccess" : true,
+        "nReturned" : 55,
+        "executionTimeMillis" : 0,
+        "totalKeysExamined" : 55,
+        "totalDocsExamined" : 55,
+        "executionStages" : {
+                "stage" : "FETCH",
+                "nReturned" : 55,
+                "executionTimeMillisEstimate" : 0,
+                "works" : 56,
+                "advanced" : 55,
+                "needTime" : 0,
+                "needFetch" : 0,
+                "saveState" : 0,
+                "restoreState" : 0,
+                "isEOF" : 1,
+                "invalidates" : 0,
+                "docsExamined" : 55,
+                "alreadyHasObj" : 0,
+                "inputStage" : {
+                        "stage" : "IXSCAN",
+                        "nReturned" : 55,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 56,
+                        "advanced" : 55,
+                        "needTime" : 0,
+                        "needFetch" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "invalidates" : 0,
+                        "keyPattern" : {
+                                "name" : 1
+                        },
+                        "indexName" : "name_1",
+                        "isMultiKey" : false,
+                        "direction" : "forward",
+                        "indexBounds" : {
+                                "name" : [
+                                        "[\"Dunkin' Donuts, Baskin Robbins\", \"Dunkin' Donuts, Baskin Robbins\"]"
+                                ]
+                        },
+                        "keysExamined" : 55,
+                        "dupsTested" : 0,
+                        "dupsDropped" : 0,
+                        "seenInvalidated" : 0,
+                        "matchTested" : 0
+                }
+        }
+}
+</code></pre><p>Para excluir o index criado usamos a função dropIndex</p><pre><code>&gt; db.restaurantes.dropIndex({ name : 1})
+{ "nIndexesWas" : 2, "ok" : 1 }
+</code></pre><p>Após a exclusão do index</p><pre><code>&gt; db.restaurantes.find(query).explain('executionStats').executionStats
+{
+        "executionSuccess" : true,
+        "nReturned" : 55,
+        "executionTimeMillis" : 15,
+        "totalKeysExamined" : 0,
+        "totalDocsExamined" : 25359,
+        "executionStages" : {
+                "stage" : "COLLSCAN",
+                "filter" : {
+                        "name" : {
+                                "$eq" : "Dunkin' Donuts, Baskin Robbins"
+                        }
+                },
+                "nReturned" : 55,
+                "executionTimeMillisEstimate" : 10,
+                "works" : 25361,
+                "advanced" : 55,
+                "needTime" : 25305,
+                "needFetch" : 0,
+                "saveState" : 198,
+                "restoreState" : 198,
+                "isEOF" : 1,
+                "invalidates" : 0,
+                "direction" : "forward",
+                "docsExamined" : 25359
+        }
+}
+</code></pre><p>A criação de index aceita multiplos valores, mas lembre-se ele somente utilizará esse index caso a busca siga com os valores criado, por exemplo:</p><pre><code>&gt; db.restaurantes.createIndex({ name : 1 , borough : 1 })
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 2,
+        "numIndexesAfter" : 3,
+        "ok" : 1
+}
+</code></pre><p>Utilizando “name” e “borough” (nome e bairro) vamos agora fazer um busca com esses dois valores na query.</p><pre><code>&gt; var query = {"name" : "Dunkin' Donuts, Baskin Robbins", "borough" : "Manhattan"}
+&gt; db.restaurantes.find(query).explain('executionStats').executionStats
+{
+        "executionSuccess" : true,
+        "nReturned" : 20,
+        "executionTimeMillis" : 36,
+        "totalKeysExamined" : 20,
+        "totalDocsExamined" : 20,
+        "executionStages" : {
+                "stage" : "FETCH",
+                "nReturned" : 20,
+                "executionTimeMillisEstimate" : 0,
+                "works" : 22,
+                "advanced" : 20,
+                "needTime" : 0,
+                "needFetch" : 0,
+                "saveState" : 1,
+                "restoreState" : 1,
+                "isEOF" : 1,
+                "invalidates" : 0,
+                "docsExamined" : 20,
+                "alreadyHasObj" : 0,
+                "inputStage" : {
+                        "stage" : "IXSCAN",
+                        "nReturned" : 20,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 21,
+                        "advanced" : 20,
+                        "needTime" : 0,
+                        "needFetch" : 0,
+                        "saveState" : 1,
+                        "restoreState" : 1,
+                        "isEOF" : 1,
+                        "invalidates" : 0,
+                        "keyPattern" : {
+                                "name" : 1,
+                                "borough" : 1
+                        },
+                        "indexName" : "name_1_borough_1",
+                        "isMultiKey" : false,
+                        "direction" : "forward",
+                        "indexBounds" : {
+                                "name" : [
+                                        "[\"Dunkin' Donuts, Baskin Robbins\", \"Dunkin' Donuts, Baskin Robbins\"]"
+                                ],
+                                "borough" : [
+                                        "[\"Manhattan\", \"Manhattan\"]"
+                                ]
+                        },
+                        "keysExamined" : 20,
+                        "dupsTested" : 0,
+                        "dupsDropped" : 0,
+                        "seenInvalidated" : 0,
+                        "matchTested" : 0
+                }
+        }
+}
+</code></pre><p>Podemos destacar a utilização do index criado anteriormente</p><pre><code>"indexBounds" : {
+        "name" : [
+                "[\"Dunkin' Donuts, Baskin Robbins\", \"Dunkin' Donuts, Baskin Robbins\"]"
+        ],
+        "borough" : [
+                "[\"Manhattan\", \"Manhattan\"]"
+        ]
+}
+</code></pre><p>Tempo de busca:</p><pre><code>"executionTimeMillis" : 36,
+</code></pre><p>Documentos analisados:</p><pre><code>"docsExamined" : 20,
+</code></pre><!-- COMPARTILHAMENTO DE POST --><table width="100%" align="center"><tr><td><p>Compartilhe</p></td></tr><tr><td align="center" title="Facebook"> <a onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" href="https://www.facebook.com/sharer/sharer.php?u=http://gpanassol.github.io/notes/index/" class="icon-facebook"> <img src="/assets/network/fc.png" width="50" height="50" /> </a></td><td align="center" title="Twitter"> <a onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" href="http://twitter.com/share?text=Variaveis em Javascript&amp;url=http://gpanassol.github.io/notes/index/" class="icon-twitter"> <img src="/assets/network/twitter.png" width="50" height="50" /> </a></td><td align="center" title="LinkedIn"> <a onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" href="https://plus.google.com/share?url=http://gpanassol.github.io/notes/index/" class="icon-google-plus"> <img src="/assets/network/google-plus.png" width="50" height="50" /> </a></td></tr></table><!-- BLOCO DE COMENTÁRIOS --><div id="disqus_thread"></div><script type="text/javascript"> var disqus_shortname = 'gpanassol'; /* * * DON'T EDIT BELOW THIS LINE * * */ (function() { var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); </script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></article><div class="back"> <a href="/">Back</a></div></main></body></html>
