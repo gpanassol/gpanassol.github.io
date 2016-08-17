@@ -4,9 +4,9 @@
 
 Essa semana tive um desafio bem legal pegar um valor de minutos e transforma-lo em horas. Basicamente eu recebo o valor 2.5m e transformo em 00:02:30. Veja:
 
-2.5   = 00:02:30
-61.5  = 01:00:30
-121.5 = 02:01:30
+2.5   = 00:02:30 <br/>
+61.5  = 01:00:30 <br/>
+121.5 = 02:01:30 <br/>
 
 A solução que proponho é:
 
