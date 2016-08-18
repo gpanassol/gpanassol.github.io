@@ -5,7 +5,7 @@
 Essa semana tive um desafio bem legal pegar um valor de minutos e transforma-lo em horas. Basicamente eu recebo o valor 2.5m e transformo em 00:02:30. Veja:
 
 2.5   = 00:02:30 <br/>
-61.5  = 01:00:30 <br/>
+61.5  = 01:01:30 <br/>
 121.5 = 02:01:30 <br/>
 
 A solução que proponho é:
@@ -84,6 +84,19 @@ public static String getHoraFormatadaFromMinutosInteiro(String minutosInteiro){
 	
 }
 ```
+
+Outra solução bem legal que o camarada <a target="_blank" href="https://github.com/sataaa">Rodrigo Godoy</a> propos é:
+
+```
+private static String getHoraFormatadaFromMinutosInteiro(String time) {
+	Duration dur = Duration.ofMillis((long)(Double.parseDouble(time) * 60000));
+	long hours = dur.toHours();
+	long minutes = dur.toMinutes()%60;
+	long seconds = (dur.toMillis()/1000)%60;
+	return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+}
+```
+
 
 <!-- COMPARTILHAMENTO DE POST -->
 <table width="100%" align="center">
