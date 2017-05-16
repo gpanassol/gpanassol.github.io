@@ -1,14 +1,14 @@
 ## Chocolatey
 
-Não é um chato saber que lá na linha de comando do linux posso simplesmente usar o comando 'apt-get' para instalar um programa e suas dependencias em minha maquina? Não seria fantastica, e pratico, se no meu prompt de comando (cmd) fosse possivel usar um programa similar para facilitar minha vida? Pois agora é meu amigo. Esse post vai abrir portas para você.
+Não é chato saber que lá na linha de comando do linux posso simplesmente usar o comando 'apt-get' para instalar um programa e suas dependências em minha máquina? Não seria fantástica, e prático, se no meu prompt de comando (cmd) fosse possível usar um programa similar para facilitar minha vida? Pois agora é meu amigo. Esse post vai abrir portas para você.
 
-### Chocolatey o 'apt-get' para windows
+### Chocolatey o 'apt-get' para Windows
 
 'I'm a tools enabler, I'm a global silent application installer. I configure stuff. Some people want to call me apt-get for Windows, I just want to get #chocolatey!'
 
-Bom, agora vou apresentar um pouco sobre o <a target="_blank" href="https://chocolatey.org/docs">Chocolatey</a> uma ferramenta incrivel.
+Bom, agora vou apresentar um pouco sobre o <a target="_blank" href="https://chocolatey.org/docs">Chocolatey</a> uma ferramenta incrível.
 
-Imagine o cenário, estrou precisando instalar o Ruby na minha maquina, afinal de contas preciso dar manutenção em um blog que usa o <a target="_blank" href="http://jekyllrb.com/">Jekyll</a>. Para isso nada melhor que usar meu mais novo gerenciador de pacotes, o chocolatey.
+Imagine o cenário, estrou precisando instalar o Ruby na minha máquina, afinal de contas preciso dar manutenção em um blog que usa o <a target="_blank" href="http://jekyllrb.com/">Jekyll</a>. Para isso nada melhor que usar meu mais novo gerenciador de pacotes, o chocolatey.
 
 Como instalar o chocolatey?
 Para isso abra o CMD em modo Administrativo (botão direito no menu Iniciar)
@@ -17,7 +17,7 @@ Para isso abra o CMD em modo Administrativo (botão direito no menu Iniciar)
 $ @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 ```
 
-Como faço para verificar se esta instalado? Como abro o help para saber melhor como usa-lo e quais parametros posso utilizar?
+Como faço para verificar se está instalado? Como abro o help para saber melhor como usá-lo e quais parâmetros posso utilizar?
 
 ```
 $ choco -?
@@ -38,8 +38,8 @@ Como faço para instalar algum outro programa? Por exemplo o Docker?
 $ choco install docker
 ```
 
-Hmmm, ainda estou com duvidas... Como faço para saber quais programas estão disponiveis?
-Bom, o chocolatey possui milhares de programas. Para saber quais estão disponiveis o programa conta algumas funcionalidade em seus comandos, por exemplo:
+Hmmm, ainda estou com dúvidas... Como faço para saber quais programas estão disponíveis?
+Bom, o chocolatey possui milhares de programas. Para saber quais estão disponíveis o programa conta algumas funcionalidades em seus comandos, por exemplo:
 
 Como faço para listar TODOS os programas?
 
@@ -76,7 +76,7 @@ vscode-docker 1.0.0 [Approved]
 ```
 
 Rapaz, essa ferramenta pensou em tudo?
-Sim, é incrivel. Usando o comando 'choco -?' ou 'choco -h' você obtem toda a descrição do que você pode fazer usando esse carinha.
+Sim, é incrível. Usando o comando 'choco -?' ou 'choco -h' você obtém toda a descrição do que você pode fazer usando esse carinha.
 
 E se eu quiser desinstalar um programa? Como faço?
 
@@ -84,4 +84,4 @@ E se eu quiser desinstalar um programa? Como faço?
 $ choco uninstall docker
 ```
 
-Realmente o chocolatey é um programa incrivel, e realmente pode ser considerado o 'apt-get' do windows.
+Realmente o chocolatey é um programa incrível, e realmente pode ser considerado o 'apt-get' do Windows.
