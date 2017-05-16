@@ -12,13 +12,13 @@ Obviamente que grandes sistemas operacionais já com o Python instalado.
 
 <img src="/assets/python/entendi_a_referencia.jpg" width="400" height="250"/>
 
-Calma jovem, você pode seguir dois caminhos. 
+Calma jovem, você pode seguir dois caminhos.
 1º Instalar um sistema operacional na sua maquina.
 2º Instalar o <a target="_blank" href="http://docs.python-guide.org/en/latest/starting/install/win/">python</a> para windows.
 
 #### Filosofia Python
 
-Tim Peters um usuário do python de longa data escreveu 'The Zen of Python'. Para ve-lo no terminal digite: 
+Tim Peters um usuário do python de longa data escreveu 'The Zen of Python'. Para ve-lo no terminal digite:
 
 ```
 import this
