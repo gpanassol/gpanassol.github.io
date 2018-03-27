@@ -1,6 +1,6 @@
-## Java Básico
+## Java Básico - Definição de variáveis de escopo
 
-### Definição da variável de escopo
+### Definição de variável de escopo
 
 O escopo de uma variável é a parte do programa onde a variável está acessível. Uma variável pode ser determinado no tempo do compilador e independente da pilha de chamadas da função. As regras do escopo Java podem ser cobertas nas seguintes categorias.
 
